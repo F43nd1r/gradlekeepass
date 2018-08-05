@@ -1,0 +1,46 @@
+plugins {
+    id 'groovy'
+    id 'idea'
+    id 'maven-publish'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile localGroovy()
+    compile gradleApi()
+    compile 'com.squareup.okhttp3:okhttp:3.11.0'
+
+    testCompile ('org.spockframework:spock-core:1.0-groovy-2.4'){
+        exclude module: "groovy-all"
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            groupId = 'com.faendir.gradlekeepass'
+            artifactId = 'gradlekeepass'
+            version = '0.1'
+            pom {
+                name = 'gradlekeepass'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'f43nd1r'
+                        name = 'Lukas Morawietz'
+                        email = 'support@faendir.com'
+                    }
+                }
+            }
+        }
+    }
+}
