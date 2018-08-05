@@ -2,6 +2,8 @@ plugins {
     id 'groovy'
     id 'idea'
     id 'maven-publish'
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '0.10.0'
 }
 
 repositories {
@@ -18,13 +20,22 @@ dependencies {
     }
 }
 
+gradlePlugin {
+    plugins {
+        keepassPlugin {
+            id = 'com.faendir.gradlekeepass'
+            implementationClass = 'com.faendir.gradlekeepass.KeepassPlugin'
+        }
+    }
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
             from components.java
-            groupId = 'com.faendir.gradlekeepass'
+            groupId = project.group
             artifactId = 'gradlekeepass'
-            version = '0.1'
+            version = project.version
             pom {
                 name = 'gradlekeepass'
                 licenses {
@@ -41,6 +52,18 @@ publishing {
                     }
                 }
             }
+        }
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/F43nd1r/gradlekeepass'
+    vcsUrl = 'https://github.com/F43nd1r/gradlekeepass'
+    tags = ['credentials', 'keepass']
+    plugins {
+        keepassPlugin {
+            displayName = 'Keepass Plugin'
+            description =  'Plugin which uses KeepassHttp to get logins from Keepass'
         }
     }
 }
