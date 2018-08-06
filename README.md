@@ -3,6 +3,10 @@ Gradle Plugin which uses [KeepassHttp](https://github.com/pfn/keepasshttp/) to g
 
 # Usage example
 ```groovy
+plugins {
+  id "com.faendir.gradlekeepass" version "0.1"
+}
+
 signingConfigs {
     release {
         def login = keepass.getLogin('intellij.android.key')
